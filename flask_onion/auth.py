@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, request
+from flask import Blueprint, request
 from werkzeug.security import generate_password_hash
 
 from flask_onion.db import get_db
