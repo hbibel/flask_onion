@@ -4,7 +4,7 @@ from typing import Callable
 import click
 from flask import Flask
 
-from flask_onion.app.auth_module import create_auth_blueprint
+from flask_onion.app.auth import AuthModule
 from flask_onion.application_services.user_service import UserService
 from flask_onion.infrastructure.sqlite_db import SqliteDb
 from flask_onion.infrastructure.sqlite_user_repository import SqliteUserRepository
@@ -21,7 +21,8 @@ def create_app():
 
     user_service = UserService(SqliteUserRepository(sqlite_db.connection))
 
-    app.register_blueprint(create_auth_blueprint(user_service))
+    auth_module = AuthModule(user_service)
+    app.register_blueprint(auth_module.blueprint)
 
     return app
 
